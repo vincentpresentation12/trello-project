@@ -44,16 +44,19 @@ export const signIn = async (email: string, password: string) => {
   });
 };
 
-export const signOut = async (auth) => {
-  return new Promise((resolve, reject) => {
-    signOut(auth)
+export const signOut = async () => {
+  return new Promise<User>((resolve, reject) => {
+    auth
+      .signOut()
       .then(() => {
         // Sign-out successful.
-        resolve(true);
+        const user = {} as User;
+        resolve(user);
       })
       .catch((error) => {
         // An error happened.
-        reject(error);
+        const user = {} as User;
+        reject(user);
       });
   });
 };

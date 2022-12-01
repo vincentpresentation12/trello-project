@@ -11,6 +11,8 @@ const firebaseConfig = {
   storageBucket: "trello-a8371.appspot.com",
   messagingSenderId: "888917075066",
   appId: "1:888917075066:web:fc6da193e8c1a60e9cc7c3",
+  databaseURL:
+    "https://trello-a8371-default-rtdb.europe-west1.firebasedatabase.app/",
 };
 
 // Initialize Firebase

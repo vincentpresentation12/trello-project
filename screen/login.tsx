@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Box,
   Button,
@@ -8,11 +8,12 @@ import {
   Link,
   Stack,
 } from "native-base";
-import { signIn } from "../api/userApi";
+import { signIn, signOut } from "../api/userApi";
 import { Icon } from "@rneui/themed";
-import { Text } from "react-native";
+import { getAuth, User } from "firebase/auth";
 
 const Login = ({ navigation }) => {
+  const auth = getAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -23,17 +24,24 @@ const Login = ({ navigation }) => {
       }
     });
   };
+
+  const handleLogout = () => {
+    signOut().then(() => {
+      navigation.navigate("Home");
+    });
+  };
   return (
     <>
-      <Flex right={0} width={"full"} backgroundColor={"blue.100"}>
-        <Icon
-          size={40}
-          onPress={() => navigation.navigate("Register")}
-          name="user"
-          type="evilicon"
-          color="#517fa4"
-        ></Icon>
-      </Flex>
+      {auth.currentUser ? (
+        <Flex right={0} width={"full"} backgroundColor={"blue.100"}>
+          <Icon
+            onPress={handleLogout}
+            name={"logout"}
+            size={40}
+            color={"#517fa4"}
+          ></Icon>
+        </Flex>
+      ) : null}
       <Box safeArea flex={1} p={2} w="90%" mx="auto">
         <Stack space={4} w="100%">
           <FormControl isRequired>
