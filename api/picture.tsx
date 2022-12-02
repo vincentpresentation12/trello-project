@@ -1,4 +1,4 @@
-import { getDatabase, onValue, ref, set } from "firebase/database";
+import {child, get, getDatabase, onValue, ref, set} from "firebase/database";
 import {
   getDownloadURL,
   getStorage,
@@ -34,18 +34,5 @@ export const UploadFile = (file: string, name: string) => {
   });
 };
 
-export const AddPictureToTask = (id: string, picture: string) => {
-  return new Promise((resolve, reject) => {
-    const taskRef = ref(database, "task/" + id);
-    onValue(taskRef, (snapshot) => {
-      const data = snapshot.val();
-      set(taskRef, {
-        id: id,
-        name: data.name,
-        picture: picture,
-        coloneTrello: data.coloneTrello,
-      });
-      resolve(true);
-    });
-  });
-};
+//use the upload file function to upload the file to firebase storage in card in colone
+export const AddCardToColoneTrello = (id: string, card: CardInterface) => {

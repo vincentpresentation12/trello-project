@@ -1,26 +1,36 @@
-import React, { useEffect, useState } from "react";
-import {
-  Box,
-  Center,
-  CheckIcon,
-  FormControl,
-  Select,
-  WarningOutlineIcon,
-} from "native-base";
-import { Text } from "react-native";
-import { GetColoneTrello } from "../api/coloneTrello";
-import { getAuth } from "firebase/auth";
+import React from "react";
+import { Button, Center, Input, PresenceTransition } from "native-base";
 
-const AddTask = () => {
-  const [data, setData] = useState([]);
-
-  const user = getAuth().currentUser;
-
+const AddTaskInput = ({ isOpen, item, addTask }) => {
+  const [name, setName] = React.useState("");
   return (
-    <Box>
-      <Text>Add Task</Text>
-    </Box>
+    <Center>
+      <PresenceTransition
+        visible={isOpen}
+        initial={{
+          opacity: 0,
+          scale: 0,
+        }}
+        animate={{
+          opacity: 1,
+          scale: 1,
+          transition: {
+            duration: 250,
+          },
+        }}
+      >
+        <Center width={"350"} h="300" mt="7" bg="gray.200" rounded="md">
+          <Input
+            type={"text"}
+            placeholder={"titre de la task"}
+            onChangeText={setName}
+            value={name}
+          />
+          <Button onPress={() => addTask(item.id, name)}></Button>
+        </Center>
+      </PresenceTransition>
+    </Center>
   );
 };
 
-export default AddTask;
+export default AddTaskInput;

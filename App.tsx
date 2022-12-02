@@ -5,12 +5,12 @@ import Login from "./screen/login";
 import Register from "./screen/register";
 import { NavigationContainer } from "@react-navigation/native";
 import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { UserTrello } from "./context/context";
 import { getAuth, User } from "firebase/auth";
 import PageTrello from "./screen/pagesTrello";
 import AddColonne from "./screen/AddColone";
-import EditColonne from "./screen/editColonne";
+import TaskAjout from "./screen/taskAjoutEdit";
 
 const Stack = createStackNavigator();
 const Tab = createMaterialBottomTabNavigator();
@@ -30,6 +30,19 @@ export default function App() {
     });
     return unsubscribe;
   }, []);
+  const MyTabs = () => {
+    return (
+      <Tab.Navigator
+        activeColor="#e91e63"
+        barStyle={{ backgroundColor: "tomato" }}
+      >
+        <Tab.Screen name="login" component={Login} />
+        <Tab.Screen name="Register" component={Register} />
+        <Tab.Screen name="Trello" component={PageTrello} />
+        <Tab.Screen name={"addColone"} component={AddColonne} />
+      </Tab.Navigator>
+    );
+  };
 
   return (
     <NativeBaseProvider>
@@ -37,16 +50,27 @@ export default function App() {
         {user && connected ? (
           <NavigationContainer>
             <StatusBar barStyle="light-content" />
-            <Tab.Navigator
-              activeColor="#e91e63"
-              barStyle={{ backgroundColor: "tomato" }}
+            <Stack.Navigator
+              screenOptions={{
+                headerShown: false,
+                headerTitle: "My Trello",
+                headerTitleAlign: "center",
+                headerStyle: {
+                  backgroundColor: "#f4511e",
+                },
+              }}
             >
-              <Tab.Screen name="login" component={Login} />
-              <Tab.Screen name="Register" component={Register} />
-              <Tab.Screen name="Trello" component={PageTrello} />
-              <Tab.Screen name={"addColone"} component={AddColonne} />
-            </Tab.Navigator>
-            <Stack.Screen name="EditColone" component={EditColonne} />
+              <Stack.Screen name="First" component={MyTabs} />
+              <Stack.Screen
+                options={{
+                  headerShown: true,
+                  headerTitle: "Ajouter une task",
+                  headerTitleAlign: "center",
+                }}
+                name="Ajout task"
+                component={TaskAjout}
+              />
+            </Stack.Navigator>
           </NavigationContainer>
         ) : (
           <NavigationContainer>

@@ -3,7 +3,7 @@
 // import { Text } from "react-native";
 // import { GetAllColone } from "../api/coloneTrello";
 //
-// const AddTask = () => {
+// const AddColonne = () => {
 //   const [data, setData] = useState<object>([]);
 //
 //   useEffect(() => {
@@ -23,4 +23,4 @@
 //   );
 // };
 //
-// export default AddTask;
+// export default AddColonne;

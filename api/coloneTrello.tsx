@@ -42,6 +42,7 @@ export const EditColoneTrello = (id: string, data: ColoneInterface) => {
     set(coloneTrelloRef, {
       name: data.name,
       cards: data.cards,
+      userId: data.userId,
     });
     resolve(true);
   });
@@ -58,19 +59,29 @@ export const DeleteColoneTrello = (id: string) => {
 // add task in colone
 export const AddCardToColoneTrello = (id: string, card: CardInterface) => {
   return new Promise((resolve, reject) => {
-    const coloneTrelloRef = ref(database, "coloneTrello/" + id);
-    onValue(coloneTrelloRef, (snapshot) => {
-      const data = snapshot.val();
-      const cards = data.cards;
-      cards.push(card);
-      set(coloneTrelloRef, {
-        id: id,
-        name: data.name,
-        picture: data.picture,
-        cards: cards,
+    const coloneTrelloRef = ref(database);
+    get(child(coloneTrelloRef, "coloneTrello/" + id))
+      .then((snapshot) => {
+        if (snapshot.exists()) {
+          const data = snapshot.val();
+          let cards = data.cards;
+          if (cards === undefined || cards === null) {
+            cards = [];
+          }
+          cards.push(card);
+          set(ref(database, "coloneTrello/" + id), {
+            name: data.name,
+            cards: cards,
+            userId: data.userId,
+          });
+          resolve(true);
+        } else {
+          console.log("No data available");
+        }
+      })
+      .catch((error) => {
+        console.error(error);
       });
-      resolve(true);
-    });
   });
 };
 // get all colone with id by user id
