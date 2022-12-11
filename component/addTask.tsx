@@ -53,15 +53,20 @@ const AddTaskInput = ({ isOpen, item, addTask }) => {
             onChangeText={setName}
             value={name}
           />
-          <Button onPress={() => uplaod(item.id, item.id)}>
+          <Button marginTop={5} onPress={() => uplaod(item.id, item.id)}>
             chercher une image
             <Image source={{ uri: image }} />
           </Button>
-          <Button onPress={() => AddPictureToCard(item.id, item.id, image)}>
-            ajouter une image
+          <Button
+            marginTop={5}
+            onPress={() => AddPictureToCard(item.id, item.id, image)}
+          >
+            ajouter une image(ne fonctionne pas)
             <Image source={{ uri: image }} />
           </Button>
-          <Button onPress={() => addTask(item.id, name)}></Button>
+          <Button marginTop={5} onPress={() => addTask(item.id, name)}>
+            ajouter votre tache
+          </Button>
         </Center>
       </PresenceTransition>
     </Center>
