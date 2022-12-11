@@ -85,7 +85,12 @@ const AddColonne = ({ navigation }) => {
         item={oneItem}
         EditColone={EditColone}
       />
-      <Button onPress={() => navigation.navigate("Ajout task")}>task</Button>
+      <Button marginTop={10} onPress={() => navigation.navigate("Ajout task")}>
+        Ajouter une tache
+      </Button>
+      <Button marginTop={5} onPress={() => navigation.navigate("ajoutPicture")}>
+        supprimer une tache
+      </Button>
     </>
   );
 };

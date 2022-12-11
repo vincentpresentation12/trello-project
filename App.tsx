@@ -11,6 +11,7 @@ import { getAuth, User } from "firebase/auth";
 import PageTrello from "./screen/pagesTrello";
 import AddColonne from "./screen/AddColone";
 import TaskAjout from "./screen/taskAjoutEdit";
+import ajoutPicture from "./screen/ajoutPicture";
 
 const Stack = createStackNavigator();
 const Tab = createMaterialBottomTabNavigator();
@@ -32,14 +33,27 @@ export default function App() {
   }, []);
   const MyTabs = () => {
     return (
-      <Tab.Navigator
-        activeColor="#e91e63"
-        barStyle={{ backgroundColor: "tomato" }}
-      >
-        <Tab.Screen name="login" component={Login} />
-        <Tab.Screen name="Register" component={Register} />
-        <Tab.Screen name="Trello" component={PageTrello} />
-        <Tab.Screen name={"addColone"} component={AddColonne} />
+      <Tab.Navigator>
+        {/*<Tab.Screen*/}
+        {/*  options={{ title: "login", tabBarIcon: "home" }}*/}
+        {/*  name="login"*/}
+        {/*  component={Login}*/}
+        {/*/>*/}
+        {/*<Tab.Screen*/}
+        {/*  options={{ title: "register", tabBarIcon: "login" }}*/}
+        {/*  name="Register"*/}
+        {/*  component={Register}*/}
+        {/*/>*/}
+        <Tab.Screen
+          options={{ title: "home", tabBarIcon: "home" }}
+          name="Trello"
+          component={PageTrello}
+        />
+        <Tab.Screen
+          options={{ title: "ajout", tabBarIcon: "login" }}
+          name={"addColone"}
+          component={AddColonne}
+        />
       </Tab.Navigator>
     );
   };
@@ -69,6 +83,15 @@ export default function App() {
                 }}
                 name="Ajout task"
                 component={TaskAjout}
+              />
+              <Stack.Screen
+                options={{
+                  headerShown: true,
+                  headerTitle: "Supprimer une task",
+                  headerTitleAlign: "center",
+                }}
+                name={"ajoutPicture"}
+                component={ajoutPicture}
               />
             </Stack.Navigator>
           </NavigationContainer>

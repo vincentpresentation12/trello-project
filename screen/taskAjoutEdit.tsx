@@ -1,7 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { Text } from "react-native";
 import { Box, Center, HStack, Input, PresenceTransition } from "native-base";
-import { AddCardToColoneTrello, GetColoneTrello } from "../api/coloneTrello";
+import {
+  AddCardToColoneTrello,
+  GetCardByColoneTrello,
+  GetColoneTrello,
+} from "../api/coloneTrello";
 import { getAuth } from "firebase/auth";
 import { Icon } from "@rneui/themed";
 import AddTaskInput from "../component/addTask";
@@ -12,6 +16,7 @@ const TaskAjout = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [oneItem, setOneItem] = useState({});
   const user = getAuth().currentUser;
+
   useEffect(() => {
     GetColoneTrello(user.uid).then((data: []) => {
       return setData(data);
@@ -26,6 +31,7 @@ const TaskAjout = () => {
       return setIsOpen(false);
     });
   };
+
   return (
     <Box>
       <Text>TaskAjout</Text>
